@@ -1,0 +1,37 @@
+#include <iostream>
+int main() {
+    int n ;
+    std::cout << "Write number n: ";
+    if(!(std::cin >> n && n>0 )){
+        std::cout << "Write number >=1\n";
+     return 0;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        int original = i;
+        int temp = i;
+        int reversed = 0;
+        
+        while (temp > 0) {
+            reversed = reversed * 10 + temp % 10;
+            temp /= 10;
+        }
+
+        if (original == reversed) {
+            int square = original * original;
+            temp = square;
+            reversed = 0;
+
+            while (temp > 0) {
+                reversed = reversed * 10 + temp % 10;
+                temp /= 10;
+            }
+            
+            if (square == reversed) {
+                std::cout << "Number: " << original << ", Square: " << square << std::endl;
+            }
+        }
+    }
+    
+    return 0;
+}

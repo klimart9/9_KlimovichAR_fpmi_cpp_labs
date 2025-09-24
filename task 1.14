@@ -1,0 +1,14 @@
+#include <iostream>
+int main()
+{
+    int num, sum;
+    std::cout <<"Positive number:";
+    std::cin >> num;
+    while (num>0) 
+    {
+        sum += num % 10;
+        num /=10;
+    } 
+    std::cout <<"Summa :" << sum << std::endl;
+    return 0;
+}

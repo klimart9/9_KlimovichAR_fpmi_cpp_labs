@@ -60,7 +60,7 @@ int main() {
     std::cout << "\n3. Sorted by absolute value:\n";
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-i-1; j++) {
-            if (std::abs(arr[j]) > std::abs(arr[j+1])) {
+            if ((arr[j]) > (arr[j+1])) {
                 double temp = arr[j];
                 arr[j] = arr[j+1];
                 arr[j+1] = temp;

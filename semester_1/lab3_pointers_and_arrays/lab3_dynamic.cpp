@@ -2,7 +2,7 @@
 #include <cmath>
 #include <random>
 
-void printArray(double arr[], int size)
+void printArray(double *arr, int size)
 {
     std::cout << "[";
     for (int i = 0; i < size; i++)
@@ -16,8 +16,10 @@ void printArray(double arr[], int size)
     std::cout << "]\n";
 }
 
-void fillRandomArray(double arr[], int size, double min = -10.0, double max = 10.0)
+void fillRandomArray(double *arr, int size)
 {
+    double max = 10.0;
+    double min = -10.0;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(min, max);
@@ -28,7 +30,7 @@ void fillRandomArray(double arr[], int size, double min = -10.0, double max = 10
     }
 }
 
-void fillKeyboardArray(double arr[], int size)
+void fillKeyboardArray(double *arr, int size)
 {
     std::cout << "Enter " << size << " elements:\n";
     for (int i = 0; i < size; i++)
@@ -37,7 +39,7 @@ void fillKeyboardArray(double arr[], int size)
     }
 }
 
-void bubbleSort(double arr[], int n)
+void bubbleSort(double *arr, int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
@@ -52,7 +54,6 @@ void bubbleSort(double arr[], int n)
         }
     }
 }
-
 int main()
 {
     int n;
@@ -83,9 +84,8 @@ int main()
         fillRandomArray(arr, n);
         break;
     default:
-        std::cout << "Invalid choice. Using random generation.\n";
-        fillRandomArray(arr, n);
-        break;
+        std::cerr << "You must enter 1 or 2";
+        return 1;
     }
 
     std::cout << "\nOriginal array: ";
@@ -130,7 +130,11 @@ int main()
 
     double x;
     std::cout << "Enter element X to insert: ";
-    std::cin >> x;
+    if (!(std::cin >> x))
+    {
+        std::cerr << "You must enter the number" << std::endl;
+        return 1;
+    }
 
     int insertIndex = n;
     for (int i = 0; i < n; i++)

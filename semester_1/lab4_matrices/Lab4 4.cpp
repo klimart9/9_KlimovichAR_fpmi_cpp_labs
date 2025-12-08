@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <random>
+#include <iomanip>
 
 int** createMatrix(int rows, int cols) {
 	int** matrix = new int* [rows];
@@ -22,9 +23,15 @@ void fillMatrixFromKeyboard(int** matrix, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			std::cout << "Element [" << i << "][" << j << "]: ";
-			std::cin >> matrix[i][j];
+			if (!(std::cin >> matrix[i][j])) {
+				throw "You need to enter the number";
+			}
 		}
 	}
+}
+
+bool comparingNumbers(int a, int b) {
+	return a < b;
 }
 
 void fillMatrixRandom(int** matrix, int rows, int cols, int a, int b) {
@@ -40,10 +47,9 @@ void fillMatrixRandom(int** matrix, int rows, int cols, int a, int b) {
 }
 
 void printMatrix(int** matrix, int rows, int cols) {
-	std::cout << "Matrix:" << std::endl;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
-			std::cout << matrix[i][j] << " ";
+			std::cout << std::left << std::setw(10) << std::fixed << std::setprecision(2) << matrix[i][j] << " ";
 		}
 		std::cout << std::endl;
 	}
@@ -51,7 +57,7 @@ void printMatrix(int** matrix, int rows, int cols) {
 
 void findSumInColumnsWithZero(int** matrix, int rows, int cols) {
 	std::cout << "\nSum of elements in columns containing zero:" << std::endl;
-
+	bool colWithZero = false;
 	for (int j = 0; j < cols; j++) {
 		bool hasZero = false;
 
@@ -63,12 +69,16 @@ void findSumInColumnsWithZero(int** matrix, int rows, int cols) {
 		}
 
 		if (hasZero) {
+			colWithZero = true;
 			int sum = 0;
 			for (int i = 0; i < rows; i++) {
 				sum += matrix[i][j];
 			}
 			std::cout << "Column " << j << ": sum = " << sum << std::endl;
 		}
+	}
+	if (!colWithZero) {
+		throw "No columns with zero";
 	}
 }
 
@@ -101,56 +111,70 @@ void sortOddRows(int** matrix, int rows, int cols) {
 }
 
 int main() {
+	try {
+		int rows, cols;
+		std::cout << "Enter number of matrix rows: ";
+		if (!(std::cin >> rows)) {
+			throw "You need to enter the number";
+		}
+		std::cout << "Enter number of matrix columns: ";
+		if (!(std::cin >> cols)) {
+			throw "You need to enter the number";
+		}
+		int** matrix = createMatrix(rows, cols);
 
-	int rows, cols;
-	std::cout << "Enter number of matrix rows: ";
-	if (!(std::cin >> rows)) {
-		std::cout << "You need to enter the number";
-		return 1;
-	}
-	std::cout << "Enter number of matrix columns: ";
-	if (!(std::cin >> cols)) {
-		std::cout << "Wrong information";
-		return 1;
-	}
-	int** matrix = createMatrix(rows, cols);
+		int choice;
+		std::cout << "\nChoose matrix filling method:" << std::endl;
+		std::cout << "1 - Keyboard input" << std::endl;
+		std::cout << "2 - Random numbers" << std::endl;
+		std::cout << "Your choice: ";
+		std::cin >> choice;
 
-	int choice;
-	std::cout << "\nChoose matrix filling method:" << std::endl;
-	std::cout << "1 - Keyboard input" << std::endl;
-	std::cout << "2 - Random numbers" << std::endl;
-	std::cout << "Your choice: ";
-	std::cin >> choice;
+		if (choice == 1) {
+			fillMatrixFromKeyboard(matrix, rows, cols);
+		}
+		else if (choice == 2) {
+			int a;
+			int b;
+			std::cout << "Enter lower bound of interval (a): ";
+			if (!(std::cin >> a)) {
+				throw "lower bound must be a number";
+			}
+			std::cout << "Enter upper bound of interval (b): ";			
+			if (!(std::cin >> b)) {
+				throw "upper bound must be a number";
+			}
+			if (comparingNumbers(a, b)) {
+				fillMatrixRandom(matrix, rows, cols, a, b);
+			}
+			else {
+				fillMatrixRandom(matrix, rows, cols, b, a);
+			}
+		}
+		else {
+			deleteMatrix(matrix, rows);
+			throw "Invalid choice";
+		}
 
-	if (choice == 1) {
-		fillMatrixFromKeyboard(matrix, rows, cols);
-	}
-	else if (choice == 2) {
-		int a, b;
-		std::cout << "Enter lower bound of interval (a): ";
-		std::cin >> a;
-		std::cout << "Enter upper bound of interval (b): ";
-		std::cin >> b;
-		fillMatrixRandom(matrix, rows, cols, a, b);
-	}
-	else {
-		std::cout << "Invalid choice!" << std::endl;
+		std::cout << "\nOriginal matrix:" << std::endl;
+		printMatrix(matrix, rows, cols);
+		try {
+			findSumInColumnsWithZero(matrix, rows, cols);
+		}
+		catch (const char* msg) {
+			std::cout << msg;
+		}
+
+		sortEvenRows(matrix, rows, cols);
+		sortOddRows(matrix, rows, cols);
+
+		std::cout << "\nTransformed matrix:" << std::endl;
+		printMatrix(matrix, rows, cols);
+
 		deleteMatrix(matrix, rows);
-		return 1;
 	}
-
-	std::cout << "\nOriginal matrix:" << std::endl;
-	printMatrix(matrix, rows, cols);
-
-	findSumInColumnsWithZero(matrix, rows, cols);
-
-	sortEvenRows(matrix, rows, cols);
-	sortOddRows(matrix, rows, cols);
-
-	std::cout << "\nTransformed matrix:" << std::endl;
-	printMatrix(matrix, rows, cols);
-
-	deleteMatrix(matrix, rows);
-
+	catch (const char* msg) {
+		std::cout << msg;
+	}
 	return 0;
 }

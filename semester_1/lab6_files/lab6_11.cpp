@@ -66,7 +66,11 @@ std::string find_first_word_of_length(const std::vector<std::string>& words, int
         }
     }
 }
-
+void swap_lines(std::vector<std::string>& lines, int line1, int line2) {
+    std::string temp = lines[line1];
+    lines[line1] = lines[line2];
+    lines[line2] = temp;
+}
 
 
 
@@ -76,6 +80,9 @@ int main() {
         std::ifstream input_file("input.txt");
         if (!input_file.is_open()) {
             throw "Cant open file input.txt";
+        }
+        if(input_file.peek() == EOF) {
+            throw "File is empty";
         }
 
         std::vector<std::string> lines;
@@ -87,9 +94,7 @@ int main() {
 
         input_file.close();
 
-        if (input_file.peek() == EOF) {
-            throw "File is empty";
-        }
+        
 
         int global_min_length = 1000000;
         int global_max_length = 0;
@@ -140,20 +145,13 @@ int main() {
 
         if (min_line_index != -1 && max_line_index != -1 && min_line_index != max_line_index) {
             std::cout << "Swapping lines " << min_line_index + 1 << " and " << max_line_index + 1 << std::endl;
-            std::string temp = lines[min_line_index];
-            lines[min_line_index] = lines[max_line_index];
-            lines[max_line_index] = temp;
-
+            swap_lines(lines, min_line_index, max_line_index);
             std::cout << "\nResult after swap:" << std::endl;
 
-            int output_count = (lines_count < 20) ? lines_count : 20;
-            for (int i = 0; i < output_count; i++) {
+            for (int i = 0; i < lines_count; i++) {
                 std::cout << "Line " << i + 1 << ": " << lines[i] << std::endl;
             }
 
-            if (lines_count > 20) {
-                std::cout << "... (total lines: " << lines_count << ")" << std::endl;
-            }
 
         }
         else if (min_line_index == max_line_index && min_line_index != -1) {

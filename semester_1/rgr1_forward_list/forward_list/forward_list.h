@@ -9,10 +9,11 @@ private:
     struct Node {
         int32_t value_;
         Node* next_;
-
+        
         explicit Node(int value) : value_(value), next_(nullptr) {
         }
     };
+    Node* head_ = nullptr;
 
 public:
     class ForwardListIterator {
@@ -40,7 +41,7 @@ public:
         }
 
         bool operator==(const ForwardListIterator& other) const {
-            // your code goes here
+            return (*this == other);
         }
 
         bool operator!=(const ForwardListIterator& other) const {
@@ -62,33 +63,34 @@ public:
     // methods for "ranged-based for loop"
     // 1) non-const version
     ForwardListIterator begin() {
-        // your code goes here
+        return ForwardListIterator(head_);
+        
     }
     ForwardListIterator end() {
-        // your code goes here
+        return ForwardListIterator(nullptr);
     }
 
     // 2) const version
     // TODO: think about return type
     // (is it exactly ForwardListIterator?)
-    ForwardListIterator begin() const {
-        // your code goes here
+    const ForwardListIterator begin() const {
+        return ForwardListIterator(head_);
     }
-    ForwardListIterator end() const {
-        // your code goes here
+    const ForwardListIterator end() const {
+        return ForwardListIterator(nullptr);
     }
 
     // default constructor
-    ForwardList();
+    ForwardList(); // complete
 
     // copy constructor
-    ForwardList(const ForwardList& rhs);
+    ForwardList(const ForwardList& rhs); // complete
 
     // Constructs a ForwardList with `count` copies of elements with value `value`.
-    ForwardList(size_t count, int32_t value);
+    ForwardList(size_t count, int32_t value); // complete
 
     // Constructs a ForwardList with std::initializer_list<int32_t>
-    ForwardList(std::initializer_list<int32_t> init);
+    ForwardList(std::initializer_list<int32_t> init); //complete
 
     // operator= overloading
     ForwardList& operator=(const ForwardList& rhs);

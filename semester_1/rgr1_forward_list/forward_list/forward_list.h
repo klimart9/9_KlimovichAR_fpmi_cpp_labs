@@ -41,11 +41,11 @@ public:
         }
 
         bool operator==(const ForwardListIterator& other) const {
-            return (*this == other);
+            return (position_ == other.position_);
         }
 
         bool operator!=(const ForwardListIterator& other) const {
-            return !(*this == other);
+            return (position_ != other.position_);
         }
 
         reference operator*() const {
@@ -73,10 +73,10 @@ public:
     // 2) const version
     // TODO: think about return type
     // (is it exactly ForwardListIterator?)
-    const ForwardListIterator begin() const {
+     ForwardListIterator begin() const {
         return ForwardListIterator(head_);
     }
-    const ForwardListIterator end() const {
+     ForwardListIterator end() const {
         return ForwardListIterator(nullptr);
     }
 
@@ -93,39 +93,37 @@ public:
     ForwardList(std::initializer_list<int32_t> init); //complete
 
     // operator= overloading
-    ForwardList& operator=(const ForwardList& rhs);
+    ForwardList& operator=(const ForwardList& rhs); //complete
 
     // destructor
-    ~ForwardList();
+    ~ForwardList(); //complete
 
     // insert new element on the top of the list
-    void PushFront(int32_t value);
+    void PushFront(int32_t value); //complete
 
     // delete first element of the list
-    void PopFront();
+    void PopFront(); //complete
 
     // remove every occurence of an element in the list
     // whose value equals to param `value`,
     // the remaining elements must remain in the same order
-    void Remove(int32_t value);
+    void Remove(int32_t value); //complete
 
     // erases all the elements
-    void Clear();
+    void Clear(); //complete
 
     // find list's element by the `value`
     // returns true, if element exists
     // otherwise, returns false
-    bool FindByValue(int32_t value);
+    bool FindByValue(int32_t value); //complete
 
     // print list's elements to stream separated by space
-    void Print(std::ostream& out);
+    void Print(std::ostream& out); //complete
 
     // get first element of the list
-    int32_t Front() const;
+    int32_t Front() const; //complete
 
     // get size of the list
-    size_t Size() const;
+    size_t Size() const; //complete
 
-private:
-    // your code goes here
 };

@@ -1,5 +1,5 @@
 #include "time_utility.h"
-
+#pragma warning(disable : 4996)
 #include <cassert>
 #include <chrono>
 #include <iostream>

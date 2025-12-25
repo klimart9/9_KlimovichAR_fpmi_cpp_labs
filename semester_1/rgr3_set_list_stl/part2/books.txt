@@ -1,0 +1,22 @@
+101 War_and_Peace 1869 2
+Tolstoy Leo Nikolaevich
+Ivanov Ivan Petrovich
+
+102 Poems_and_Verses 1837 1
+Pushkin Alexander Sergeevich
+
+103 Fundamentals_of_Programming 2020 3
+Petrov Nikolai Andreevich
+Sidorov Alexey Borisovich
+Kuznetsov Dmitry Ivanovich
+
+104 Mathematical_Analysis 2015 2
+Lebedev Mikhail Yurievich
+Smirnov Andrey Pavlovich
+
+105 Joint_Work 2025 5
+Ivanov Ivan Ivanovich
+Petrov Petr Petrovich
+Sidorov Sidor Sidorovich
+Smirnov Sergey Alexandrovich
+Kuznetsov Alexey Nikolaevich

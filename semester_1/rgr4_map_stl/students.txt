@@ -1,0 +1,7 @@
+Ivanov 101 Math 8 Programming 9 PE 7
+Petrov 102 Math 5 Programming 6 PE 4
+Sidorov 103 Math 10 Programming 9 PE 8
+Grigorenko 104 Math 3 Programming 4 PE 2
+Maximov 105 Math 7 Programming 8 PE 9
+Kolobkov 106 Math 5 Programming 3 Physics 6
+Metrov 107 Math 9 Programming 9 Physics 9
